@@ -12,7 +12,6 @@ class BPReadableStream {
         };
         let genType = "SIMPLE";
         if ("throttleMs" in options) {
-            const throttleDefined = typeof options.throttleMs === "number";
             if (options.throttleMs !== undefined && options.throttleMs <= 0) {
                 throw new Error("Throttle MS should be greater than 0");
             }
@@ -20,7 +19,7 @@ class BPReadableStream {
         }
         const generatorBuilder = this.createGenerator(genType, source, options);
         const createAsyncIterator = generatorBuilder.generate();
-        return stream_1.Readable.from(createAsyncIterator(), { autoDestroy: true });
+        return stream_1.Readable.from(createAsyncIterator());
     }
     static createGenerator(generatorType, buffer, opts) {
         if (generatorType === "THROTTLED") {

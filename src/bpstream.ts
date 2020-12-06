@@ -9,9 +9,8 @@ type GeneratorType = "SIMPLE" | "THROTTLED";
 type SimpleBufferStream = { chunkSize: number };
 
 type ThrottledBufferStream = {
-  chunkSize: number;
   throttleMs: number;
-};
+} & SimpleBufferStream;
 
 type BPReadableStreamOpts = SimpleBufferStream | ThrottledBufferStream;
 
@@ -27,8 +26,6 @@ export class BPReadableStream {
     let genType: GeneratorType = "SIMPLE";
 
     if ("throttleMs" in options) {
-      const throttleDefined = typeof options.throttleMs === "number";
-
       if (options.throttleMs !== undefined && options.throttleMs <= 0) {
         throw new Error("Throttle MS should be greater than 0");
       }
@@ -40,7 +37,7 @@ export class BPReadableStream {
 
     const createAsyncIterator = generatorBuilder.generate();
 
-    return Readable.from(createAsyncIterator(), { autoDestroy: true });
+    return Readable.from(createAsyncIterator());
   }
 
   private static createGenerator(

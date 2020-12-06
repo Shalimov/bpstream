@@ -4,6 +4,8 @@
   "description": "Back-pressure streaming",
   "main": "./dist/index.js",
   "scripts": {
+    "clean:dist": "rm -rf ./dist",
+    "build": "npm run clean:dist && npx tsc -p ./",
     "lint:type": "npx tsc -p ./ --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

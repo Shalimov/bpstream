@@ -4,9 +4,8 @@ declare type SimpleBufferStream = {
     chunkSize: number;
 };
 declare type ThrottledBufferStream = {
-    chunkSize: number;
     throttleMs: number;
-};
+} & SimpleBufferStream;
 declare type BPReadableStreamOpts = SimpleBufferStream | ThrottledBufferStream;
 export declare class BPReadableStream {
     private static DEFAULT_CHUNK_SIZE;
